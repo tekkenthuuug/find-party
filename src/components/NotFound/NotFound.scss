@@ -1,0 +1,19 @@
+.not_found_container {
+  height: 100vh;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.not_found_error {
+  font-size: 42px;
+}
+
+.not_found_go_home {
+  font-size: 20px;
+  cursor: pointer;
+  text-decoration: underline;
+  color: lightblue;
+}
