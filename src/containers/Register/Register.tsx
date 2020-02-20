@@ -1,32 +1,13 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { useFormik } from 'formik';
-import TextInput from '../../components/TextInput/TextInput';
-import './Register.scss';
-import CachedRoundedIcon from '@material-ui/icons/CachedRounded';
-import ArrowRightAltRoundedIcon from '@material-ui/icons/ArrowRightAltRounded';
-
-import { IFormProps as IRegisterProps } from '../../App';
-
-interface IBaseValidation {
-  username: string | null;
-  password: string | null;
-}
-
-interface IFormik {
-  firstName: string;
-  lastName: string;
-  username: string;
-  password: string;
-  city: string;
-  country: string;
-  error: string;
-}
+import { IBaseValidation, IFormProps, Section } from '../../types/types';
+import Form from '../../components/Form/Form';
 
 export const validateBase = ({ username, password }: IBaseValidation) => {
   const errors: IBaseValidation = {
-    username: null,
-    password: null
+    username: '',
+    password: ''
   };
   if (!username) {
     errors.username = 'Required field';
@@ -49,8 +30,32 @@ export const validateBase = ({ username, password }: IBaseValidation) => {
   return errors;
 };
 
-const Register: React.FC<IRegisterProps> = ({ user, setUser, location }) => {
-  const formik = useFormik<IFormik>({
+const sections: Section[] = [
+  {
+    title: 'Login information',
+    fields: [
+      { placeholder: 'Username', name: 'username' },
+      { placeholder: 'Password', name: 'password' }
+    ]
+  },
+  {
+    title: 'Location information',
+    fields: [
+      { placeholder: 'Country', name: 'country' },
+      { placeholder: 'City', name: 'city' }
+    ]
+  },
+  {
+    title: 'Personal information',
+    fields: [
+      { placeholder: 'First Name', name: 'firstName' },
+      { placeholder: 'Last Name', name: 'lastName' }
+    ]
+  }
+];
+
+const Register: React.FC<IFormProps> = ({ user, setUser, location }) => {
+  const formik = useFormik<IBaseValidation>({
     initialValues: {
       firstName: '',
       lastName: '',
@@ -92,54 +97,20 @@ const Register: React.FC<IRegisterProps> = ({ user, setUser, location }) => {
   }
 
   return (
-    <div className="register-container">
-      <div className="register-box">
-        <h1>Join us now!</h1>
-        <p>
+    <Form
+      formik={formik}
+      headTitle="Join us now!"
+      submitButtonText="Register"
+      subTitle={
+        <Fragment>
           Already registered?{' '}
           <Link to="/login">
             <span>Sign in!</span>
           </Link>
-        </p>
-        <form onSubmit={formik.handleSubmit} className="register-login-from">
-          {formik.values.error ? <div className="form-error">Username is taken</div> : null}
-          <h2>Login information</h2>
-          <div className="input-section">
-            <TextInput
-              placeholder="Username"
-              handleChange={formik.handleChange}
-              name="username"
-              error={formik.errors.username || null}
-            />
-            <TextInput
-              placeholder="Password"
-              handleChange={formik.handleChange}
-              inputType="password"
-              name="password"
-              error={formik.errors.password || null}
-            />
-          </div>
-          <h2>Location information</h2>
-          <div className="input-section">
-            <TextInput placeholder="Country" handleChange={formik.handleChange} name="country" />
-            <TextInput placeholder="City" handleChange={formik.handleChange} name="city" />
-          </div>
-          <h2>Personal information</h2>
-          <div className="input-section">
-            <TextInput placeholder="First name" handleChange={formik.handleChange} name="firstName" />
-            <TextInput placeholder="Last name" handleChange={formik.handleChange} name="lastName" />
-          </div>
-          <button className="submit-button" type="submit" disabled={formik.isSubmitting}>
-            <span>Register</span>
-            {formik.isSubmitting || formik.isValidating ? (
-              <CachedRoundedIcon style={{ animation: 'spin 1s linear infinite' }} />
-            ) : (
-              <ArrowRightAltRoundedIcon />
-            )}
-          </button>
-        </form>
-      </div>
-    </div>
+        </Fragment>
+      }
+      sections={sections}
+    />
   );
 };
 

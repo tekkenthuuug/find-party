@@ -1,4 +1,4 @@
-.register-container {
+.form-container {
   background-color: #1d1d21;
   height: 100vh;
   display: flex;
@@ -7,7 +7,7 @@
   color: #fff;
 }
 
-.register-box {
+.form-box {
   width: 1000px;
   background-color: #2a2a31;
   display: flex;
@@ -71,7 +71,7 @@
   }
 }
 
-.register-login-from {
+.form {
   width: 100%;
   display: flex;
   justify-content: center;

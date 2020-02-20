@@ -1,25 +1,24 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { useFormik } from 'formik';
-import TextInput from '../../components/TextInput/TextInput';
-import { IFormProps as ILoginProps } from '../../App';
+import Form from '../../components/Form/Form';
+import { IFormProps, Section, IBaseValidation } from '../../types/types';
+import '../../components/Form/Form.scss';
+
+// Importing validtion method
 import { validateBase } from '../Register/Register';
-import CachedRoundedIcon from '@material-ui/icons/CachedRounded';
-import ArrowRightAltRoundedIcon from '@material-ui/icons/ArrowRightAltRounded';
-import '../Register/Register.scss';
 
-type Error = {
-  details: string;
-};
+const sections: Section[] = [
+  {
+    fields: [
+      { placeholder: 'Username', name: 'username' },
+      { placeholder: 'Password', name: 'password' }
+    ]
+  }
+];
 
-interface IFormik {
-  username: string;
-  password: string;
-  error: Error | null;
-}
-
-const Login: React.FC<ILoginProps> = ({ user, setUser, location }) => {
-  const formik = useFormik({
+const Login: React.FC<IFormProps> = ({ user, setUser, location }) => {
+  const formik = useFormik<IBaseValidation>({
     initialValues: {
       username: '',
       password: '',
@@ -42,8 +41,11 @@ const Login: React.FC<ILoginProps> = ({ user, setUser, location }) => {
             setUser({ id: data.id, username: data.username });
           } else if (data.error) {
             setSubmitting(false);
-            setValues({ ...props, error: data.error.details });
+            setValues({ ...props, error: data.error });
           }
+        })
+        .catch(() => {
+          setSubmitting(false);
         });
     }
   });
@@ -53,43 +55,20 @@ const Login: React.FC<ILoginProps> = ({ user, setUser, location }) => {
   }
 
   return (
-    <div className="register-container">
-      <div className="register-box">
-        <h1>Join your friends!</h1>
-        <p>
+    <Form
+      formik={formik}
+      headTitle="Join your friends!"
+      submitButtonText="Login"
+      subTitle={
+        <Fragment>
           Don't have an account yet?{' '}
           <Link to="/register">
-            <span>Register now!</span>
+            <span>Register!</span>
           </Link>
-        </p>
-        <form className="register-login-from" onSubmit={formik.handleSubmit}>
-          {formik.values.error ? <div className="form-error">Couldn't find user</div> : null}
-          <div className="input-section">
-            <TextInput
-              placeholder="Username"
-              handleChange={formik.handleChange}
-              name="username"
-              error={formik.errors.username || null}
-            />
-            <TextInput
-              placeholder="Password"
-              handleChange={formik.handleChange}
-              name="password"
-              error={formik.errors.password || null}
-              inputType="password"
-            />
-          </div>
-          <button className="submit-button" type="submit" disabled={formik.isSubmitting}>
-            <span>Submit</span>
-            {formik.isSubmitting || formik.isValidating ? (
-              <CachedRoundedIcon style={{ animation: 'spin 1s linear infinite' }} />
-            ) : (
-              <ArrowRightAltRoundedIcon />
-            )}
-          </button>
-        </form>
-      </div>
-    </div>
+        </Fragment>
+      }
+      sections={sections}
+    />
   );
 };
 

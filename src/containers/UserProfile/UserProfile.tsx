@@ -1,15 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import './UserProfile.scss';
 import Loading from '../../components/Loading/Loading';
-import ErrorScreen from '../NotFound/NotFound';
-import TextInput from '../TextInput/TextInput';
+import ErrorScreen from '../../components/NotFound/NotFound';
+import { IUserProfileProps } from '../../types/types';
+import CommentsBlock from '../../components/CommentsBlock/CommentsBlock';
 
-type Comment = {
-  senderName: string;
-  content: string;
-};
+import './UserProfile.scss';
 
-interface IUserProfile {
+interface IUserProfileState {
   username: string;
   country: string;
   city: string;
@@ -18,8 +15,8 @@ interface IUserProfile {
   description: string;
 }
 
-const UserProfile: React.FC<{ userID: string; user: { id: string; username: string } }> = ({ userID, user }) => {
-  const [userProfile, setUserProfile] = useState<IUserProfile>({
+const UserProfile: React.FC<IUserProfileProps> = ({ userID }) => {
+  const [userProfile, setUserProfile] = useState<IUserProfileState>({
     username: '',
     country: '',
     city: '',
@@ -27,25 +24,8 @@ const UserProfile: React.FC<{ userID: string; user: { id: string; username: stri
     lastName: '',
     description: ''
   });
-  const [profileComments, setProfileComments] = useState<Array<Comment>>([]);
-  const [comment, setComment] = useState('');
-  const [err, setErr] = useState(false);
 
-  const handleSendComment = () => {
-    fetch(`http://localhost:8000/api/comments/${userID}`, {
-      method: 'post',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        content: comment,
-        senderName: user.username,
-        targetID: userID
-      })
-    })
-      .then((r) => r.json())
-      .then((data) => {
-        console.log(data);
-      });
-  };
+  const [err, setErr] = useState(false);
 
   useEffect(() => {
     fetch(`http://localhost:8000/api/users/${userID}`, {
@@ -58,15 +38,6 @@ const UserProfile: React.FC<{ userID: string; user: { id: string; username: stri
           setErr(true);
         }
         setUserProfile(data);
-      });
-
-    fetch(`http://localhost:8000/api/comments/${userID}`, {
-      method: 'get',
-      headers: { 'Content-Type': 'application/json' }
-    })
-      .then((r) => r.json())
-      .then((data) => {
-        setProfileComments(data);
       });
   }, [userID]);
 
@@ -111,31 +82,7 @@ const UserProfile: React.FC<{ userID: string; user: { id: string; username: stri
             </div>
           </div>
         </div>
-        <div className="comments">
-          <h4>Comments</h4>
-          <div className="comments_block">
-            {profileComments.length ? (
-              profileComments.map((comment, index) => {
-                return (
-                  <div className="comment" key={index}>
-                    <div className="comment-content">
-                      <h5>{comment.senderName}</h5>
-                      <p>{comment.content}</p>
-                    </div>
-                  </div>
-                );
-              })
-            ) : (
-              <h1>Loading</h1>
-            )}
-          </div>
-          {user.id ? (
-            <div>
-              <TextInput placeholder="Write your comment..." handleChange={(event) => setComment(event.target.value)} />
-              <button onClick={handleSendComment}>Send</button>
-            </div>
-          ) : null}
-        </div>
+        <CommentsBlock userID={userID} />
       </section>
     </div>
   );

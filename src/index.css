@@ -13,6 +13,11 @@ body {
 
 button {
   cursor: pointer;
+  border: none;
+}
+
+button:disabled {
+  cursor: default;
 }
 
 a {
