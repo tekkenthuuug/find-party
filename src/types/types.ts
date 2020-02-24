@@ -20,6 +20,7 @@ export interface IUserProfileProps {
 }
 
 export type TComment = {
+  senderID: string;
   senderName: string;
   content: string;
 };
@@ -39,6 +40,18 @@ export type Section = {
   fields: {
     placeholder: string;
     name: string;
+    defaultValue?: string;
     dropdown?: string[];
+    twoColumns?: boolean;
+    multiline?: number;
   }[];
 };
+
+export interface IUserProfileBase {
+  username: string;
+  country: string;
+  city: string;
+  firstName: string;
+  lastName: string;
+  description: string;
+}

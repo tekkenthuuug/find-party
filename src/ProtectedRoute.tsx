@@ -15,7 +15,7 @@ const ProtectedRoute: React.FC<IProtectedRoute> = ({ userID, component: Componen
       {...rest}
       render={(props) => {
         if (userID) {
-          return <Component {...props} />;
+          return <Component {...props} userID={userID} />;
         } else {
           return (
             <Redirect

@@ -38,12 +38,15 @@ const TopBar: React.FC<ITopBar> = ({ setUser, toggleDrawer, userID, news = '' })
 
   const handleLogOut = () => {
     handleClose();
+    sessionStorage.removeItem('id');
+    sessionStorage.removeItem('username');
     setUser({
       username: '',
       id: ''
     });
     history.push('/login');
   };
+
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);

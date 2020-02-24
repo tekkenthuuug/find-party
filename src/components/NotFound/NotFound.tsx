@@ -1,15 +1,17 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import './NotFound.scss';
+import { useHistory } from 'react-router-dom';
 import { INotFound } from '../../types/types';
+import './NotFound.scss';
 
 const ErrorScreen: React.FC<INotFound> = ({ errorMessage }) => {
+  const history = useHistory();
+
   return (
     <div className="not_found_container">
       <span className="not_found_error">{errorMessage}</span>
-      <Link to="/">
-        <span className="not_found_go_home">Go back home</span>
-      </Link>
+      <span onClick={() => history.goBack()} className="not_found_go_home">
+        Go back
+      </span>
     </div>
   );
 };

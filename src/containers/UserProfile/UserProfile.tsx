@@ -1,18 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import Loading from '../../components/Loading/Loading';
-import ErrorScreen from '../../components/NotFound/NotFound';
-import { IUserProfileProps } from '../../types/types';
+import NotFound from '../../components/NotFound/NotFound';
+import { IUserProfileProps, IUserProfileBase } from '../../types/types';
 import CommentsBlock from '../../components/CommentsBlock/CommentsBlock';
 
 import './UserProfile.scss';
 
-interface IUserProfileState {
-  username: string;
-  country: string;
-  city: string;
-  firstName: string;
-  lastName: string;
-  description: string;
+interface IUserProfileState extends IUserProfileBase {
+  enrolled: number;
+  created: number;
 }
 
 const UserProfile: React.FC<IUserProfileProps> = ({ userID }) => {
@@ -22,7 +18,9 @@ const UserProfile: React.FC<IUserProfileProps> = ({ userID }) => {
     city: '',
     firstName: '',
     lastName: '',
-    description: ''
+    description: '',
+    enrolled: 0,
+    created: 0
   });
 
   const [err, setErr] = useState(false);
@@ -46,13 +44,15 @@ const UserProfile: React.FC<IUserProfileProps> = ({ userID }) => {
   };
 
   if (err) {
-    return <ErrorScreen errorMessage="User not found!" />;
+    return <NotFound errorMessage="User not found!" />;
   }
 
-  if (!userProfile.username) {
+  const { username, country, city, firstName, lastName, created, enrolled, description } = userProfile;
+
+  if (!username) {
     return <Loading />;
   }
-
+  // @ add description to settings menu
   return (
     <div className="profile-page">
       <section className="profile-card">
@@ -60,29 +60,22 @@ const UserProfile: React.FC<IUserProfileProps> = ({ userID }) => {
           <div className="profile-avatar"></div>
           <div className="profile-info">
             <div className="profile__head">
-              <h2 className="head__username">{userProfile.username}</h2>
-              <h2 className="head__location">{getField(userProfile.country, userProfile.city, true)}</h2>
+              <h2 className="head__username">{username}</h2>
+              <h2 className="head__location">{getField(country, city, true)}</h2>
             </div>
-            <h3>{getField(userProfile.firstName, userProfile.lastName, false)}</h3>
-            <p>
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Esse officia corrupti facilis animi voluptatibus
-              perferendis laborum! Perferendis voluptate aliquid officia officiis beatae incidunt optio illum nulla
-              voluptatem pariatur, ea accusantium.
-            </p>
+            <h3>{getField(firstName, lastName, false)}</h3>
+            <p>{description}</p>
             <div className="badge-section">
               <div className="badge">
-                <span>Created: 19</span>
+                <span>Created: {created}</span>
               </div>
               <div className="badge">
-                <span>Attended: 19</span>
-              </div>
-              <div className="badge">
-                <span>Enrolled: 19</span>
+                <span>Enrolled: {enrolled}</span>
               </div>
             </div>
           </div>
         </div>
-        <CommentsBlock userID={userID} />
+        <CommentsBlock target={{ id: userID, name: 'users' }} />
       </section>
     </div>
   );

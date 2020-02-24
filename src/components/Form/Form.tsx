@@ -4,7 +4,6 @@ import CachedRoundedIcon from '@material-ui/icons/CachedRounded';
 import ArrowRightAltRoundedIcon from '@material-ui/icons/ArrowRightAltRounded';
 import { FormikValues } from 'formik';
 import { Section } from '../../types/types';
-import { Select, MenuItem } from '@material-ui/core';
 import './Form.scss';
 
 interface IForm {
@@ -22,20 +21,23 @@ const Form: React.FC<IForm> = ({ headTitle, formik, sections, submitButtonText, 
         <h1>{headTitle}</h1>
         {subTitle ? <p>{subTitle}</p> : null}
         <form onSubmit={formik.handleSubmit} className="form">
-          {formik.values.error ? <div className="form-error">Username is taken</div> : null}
+          {formik.values.error ? <div className="form-error">{formik.values.error}</div> : null}
           {sections.map((section, index) => {
             return (
               <Fragment key={index}>
                 {section.title ? <h2>{section.title}</h2> : null}
                 <div className="input-section">
                   {section.fields.map((field) => {
-                    return field.dropdown ? null : (
+                    return (
                       <TextInput
                         key={field.name}
+                        initialVal={formik.values[field.name]}
                         placeholder={field.placeholder}
                         handleChange={formik.handleChange}
                         name={field.name}
                         error={formik.errors[field.name] || null}
+                        twoColumns={field.twoColumns}
+                        multiline={field.multiline}
                       />
                     );
                   })}

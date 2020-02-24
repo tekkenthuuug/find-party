@@ -8,6 +8,9 @@ import Navigation from './components/Navigation/Navigation';
 import Loading from './components/Loading/Loading';
 import ProtectedRoute from './ProtectedRoute';
 import CreateEvent from './containers/CreateEvent/CreateEvent';
+import EventPage from './components/EventPage/EventPage';
+import SettingPage from './containers/SettingsPage/SettingsPage';
+
 const NotFound: React.FC<INotFound> = lazy(() => import('./components/NotFound/NotFound'));
 const Feed: React.FC = lazy(() => import('./containers/Feed/Feed'));
 const UserProfile: React.FC<IUserProfileProps> = lazy(() => import('./containers/UserProfile/UserProfile'));
@@ -15,8 +18,8 @@ const Register: React.FC<IFormProps> = lazy(() => import('./containers/Register/
 const Login: React.FC<IFormProps> = lazy(() => import('./containers/Login/Login'));
 
 const initialUser = {
-  id: '',
-  username: ''
+  id: sessionStorage.getItem('id') || '',
+  username: sessionStorage.getItem('username') || ''
 };
 
 export const UserContext = createContext(initialUser);
@@ -35,6 +38,12 @@ const App: React.FC = () => {
             <Route exact path="/login" render={(props) => <Login {...props} setUser={setUser} user={user} />} />
             <ProtectedRoute exact path="/feed" component={Feed} userID={user.id} />
             <ProtectedRoute exact path="/events/create" component={CreateEvent} userID={user.id} />
+            <ProtectedRoute exact path="/settings" component={SettingPage} userID={user.id} />
+            <Route
+              exact
+              path="/events/:id"
+              render={({ match }) => <EventPage eventID={match.params.id} userID={user.id} />}
+            />
             <Route
               exact
               path="/users/:id"

@@ -9,6 +9,9 @@ interface ITextInput {
   inputType?: string;
   name?: string;
   error?: string | null;
+  twoColumns?: boolean;
+  multiline?: number;
+  initialVal?: string;
 }
 
 const theme = createMuiTheme({
@@ -34,18 +37,30 @@ const theme = createMuiTheme({
   }
 });
 
-const TextInput: React.FC<ITextInput> = ({ placeholder, handleChange, inputType = 'text', name, error }) => {
+const TextInput: React.FC<ITextInput> = ({
+  placeholder,
+  handleChange,
+  inputType = 'text',
+  name,
+  error,
+  twoColumns,
+  multiline,
+  initialVal
+}) => {
   return (
-    <div>
+    <div style={twoColumns ? { gridColumnStart: '1', gridColumnEnd: '3' } : undefined}>
       <div className="error">{error ? error : null}</div>
       <ThemeProvider theme={theme}>
         <TextField
+          value={initialVal}
           label={placeholder}
           variant="filled"
           type={inputType}
           onChange={handleChange}
           name={name}
           color="primary"
+          multiline={Boolean(multiline)}
+          rows={multiline}
         />
       </ThemeProvider>
     </div>

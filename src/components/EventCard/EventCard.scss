@@ -1,0 +1,24 @@
+.event-card {
+  background-color: rgb(57, 57, 66);
+  padding: 20px;
+  border-radius: 10px;
+  color: #f6f2f2;
+  margin-top: 20px;
+  cursor: pointer;
+}
+
+.event-card_head {
+  margin-top: -10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.event-card_desc {
+  text-align: center;
+  margin-top: 10px;
+  margin-left: 4px;
+  max-height: 80px;
+  overflow: hidden;
+  color: #617c88;
+}

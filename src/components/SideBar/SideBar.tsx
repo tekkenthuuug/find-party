@@ -37,7 +37,7 @@ const SideBar: React.FC<IDrawer> = ({ userID, drawerOpened, toggleDrawer }) => {
       icon: <AccountCircleRoundedIcon style={{ color: 'white' }} />
     },
     { title: 'Feed', path: '/feed', icon: <DynamicFeedIcon style={{ color: 'white' }} /> },
-    { title: 'Create evet', path: '/events/create', icon: <AddCircleIcon style={{ color: 'white' }} /> },
+    { title: 'Create event', path: '/events/create', icon: <AddCircleIcon style={{ color: 'white' }} /> },
     { title: 'Settings', path: '/settings', icon: <SettingsApplicationsRoundedIcon style={{ color: 'white' }} /> }
   ];
 

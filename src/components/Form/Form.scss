@@ -37,7 +37,8 @@
 .input-section {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 4px;
+  grid-template-rows: auto;
+  grid-gap: 4px;
 }
 
 .submit-button {
