@@ -13,6 +13,7 @@
   display: flex;
   align-items: center;
   flex-direction: column;
+  text-align: center;
   padding: 0px 100px;
   h1 {
     font-size: 42px;
@@ -104,5 +105,17 @@
   }
   .submit-button {
     width: 60%;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .form-box {
+    padding: 0px 30px;
+    width: 100%;
+    height: auto;
+  }
+  .form-container {
+    height: auto;
+    padding-top: 60px;
   }
 }

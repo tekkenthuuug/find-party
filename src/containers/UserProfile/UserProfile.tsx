@@ -52,7 +52,7 @@ const UserProfile: React.FC<IUserProfileProps> = ({ userID }) => {
   if (!username) {
     return <Loading />;
   }
-  // @ add description to settings menu
+
   return (
     <div className="profile-page">
       <section className="profile-card">
