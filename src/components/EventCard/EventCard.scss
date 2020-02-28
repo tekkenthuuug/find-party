@@ -5,6 +5,7 @@
   color: #f6f2f2;
   margin-top: 20px;
   cursor: pointer;
+  font-size: 18px;
 }
 
 .event-card_head {
@@ -12,6 +13,9 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  h3 {
+    text-align: center;
+  }
 }
 
 .event-card_desc {
@@ -21,4 +25,11 @@
   max-height: 80px;
   overflow: hidden;
   color: #617c88;
+}
+
+@media screen and (max-width: 600px) {
+  .event-card {
+    font-size: 12px;
+    padding: 20px 8px;
+  }
 }

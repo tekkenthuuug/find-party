@@ -51,10 +51,11 @@ const SettingsPage: React.FC<{ userID: string }> = ({ userID }) => {
       headers: { 'Content-Type': 'application/json' }
     })
       .then((r) => r.json())
-      .then((data) => {
-        formik.setValues({ description: data.description });
+      .then(({ description }) => {
+        formik.setValues({ description });
       });
-  }, [userID, formik]);
+    // eslint-disable-next-line
+  }, [userID]);
 
   return <Form headTitle="Profile settings" sections={sections} submitButtonText={'Apply'} formik={formik} />;
 };
