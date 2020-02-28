@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import CommentsBlock from '../CommentsBlock/CommentsBlock';
 import NotFound from '../NotFound/NotFound';
 import './EventPage.scss';
+import { SERVER_URL } from '../../vars';
 
 interface IEventProps {
   eventID: string;
@@ -33,7 +34,7 @@ const EventPage: React.FC<IEventProps> = ({ eventID, userID }) => {
   const [isEnrolled, setIsEndrolled] = useState(false);
 
   useEffect(() => {
-    fetch(`http://localhost:8000/api/events/info/${eventID}`, {
+    fetch(SERVER_URL + `/api/events/info/${eventID}`, {
       method: 'get',
       headers: { 'Content-Type': 'application/json' }
     })
