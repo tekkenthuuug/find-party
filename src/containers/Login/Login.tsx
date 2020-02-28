@@ -3,6 +3,7 @@ import { Link, Redirect } from 'react-router-dom';
 import { useFormik } from 'formik';
 import Form from '../../components/Form/Form';
 import { IFormProps, Section, IBaseValidation } from '../../types/types';
+import { SERVER_URL } from '../../vars';
 import '../../components/Form/Form.scss';
 
 // Importing validtion method
@@ -27,7 +28,7 @@ const Login: React.FC<IFormProps> = ({ user, setUser, location }) => {
     validate: (values) => validateBase(values),
     onSubmit: (props, { setSubmitting, setValues }) => {
       const { username, password } = props;
-      fetch('http://localhost:8000/api/signin', {
+      fetch(SERVER_URL + '/api/signin', {
         method: 'post',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

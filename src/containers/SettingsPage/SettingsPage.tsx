@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import Form from '../../components/Form/Form';
 import { useFormik } from 'formik';
 import { Section, IBaseValidation } from '../../types/types';
+import { SERVER_URL } from '../../vars';
 
 const sections: Section[] = [
   {
@@ -30,7 +31,7 @@ const SettingsPage: React.FC<{ userID: string }> = ({ userID }) => {
     },
     validate: (values) => validate(values),
     onSubmit: ({ description }, { setSubmitting }) => {
-      fetch(`http://localhost:8000/api/users/settings`, {
+      fetch(SERVER_URL + `/api/users/settings`, {
         method: 'put',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -46,7 +47,7 @@ const SettingsPage: React.FC<{ userID: string }> = ({ userID }) => {
   });
 
   useEffect(() => {
-    fetch(`http://localhost:8000/api/users/${userID}`, {
+    fetch(SERVER_URL + `/api/users/${userID}`, {
       method: 'get',
       headers: { 'Content-Type': 'application/json' }
     })

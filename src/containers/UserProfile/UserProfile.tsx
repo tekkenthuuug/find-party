@@ -5,6 +5,7 @@ import { IUserProfileProps, IUserProfileBase } from '../../types/types';
 import CommentsBlock from '../../components/CommentsBlock/CommentsBlock';
 
 import './UserProfile.scss';
+import { SERVER_URL } from '../../vars';
 
 interface IUserProfileState extends IUserProfileBase {
   enrolled: number;
@@ -26,7 +27,7 @@ const UserProfile: React.FC<IUserProfileProps> = ({ userID }) => {
   const [err, setErr] = useState(false);
 
   useEffect(() => {
-    fetch(`http://localhost:8000/api/users/${userID}`, {
+    fetch(SERVER_URL + `/api/users/${userID}`, {
       method: 'get',
       headers: { 'Content-Type': 'application/json' }
     })

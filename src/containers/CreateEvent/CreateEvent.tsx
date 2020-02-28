@@ -4,6 +4,7 @@ import { Section, IBaseValidation } from '../../types/types';
 import { useFormik } from 'formik';
 import { UserContext } from '../../App';
 import { useHistory } from 'react-router-dom';
+import { SERVER_URL } from '../../vars';
 
 const sections: Section[] = [
   {
@@ -93,7 +94,7 @@ const CreateEvent: React.FC = () => {
     },
     validate: (values) => validate(values),
     onSubmit: ({ title, contact, description, country, city }, { setSubmitting }) => {
-      fetch('http://localhost:8000/api/events/create', {
+      fetch(SERVER_URL + '/api/events/create', {
         method: 'post',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

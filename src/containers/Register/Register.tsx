@@ -3,6 +3,7 @@ import { Link, Redirect } from 'react-router-dom';
 import { useFormik } from 'formik';
 import { IBaseValidation, IFormProps, Section } from '../../types/types';
 import Form from '../../components/Form/Form';
+import { SERVER_URL } from '../../vars';
 
 export const validateBase = ({ username, password }: IBaseValidation) => {
   const errors: IBaseValidation = {
@@ -68,7 +69,7 @@ const Register: React.FC<IFormProps> = ({ user, setUser, location }) => {
     validate: (values) => validateBase(values),
     onSubmit: (props, { setSubmitting, setValues }) => {
       const { username, country, city, password, firstName, lastName } = props;
-      fetch('http://localhost:8000/api/register', {
+      fetch(SERVER_URL + '/api/register', {
         method: 'post',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

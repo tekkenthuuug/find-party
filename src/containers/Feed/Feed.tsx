@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import EventCard from '../../components/EventCard/EventCard';
 import './Feed.scss';
+import { SERVER_URL } from '../../vars';
 
 interface IFeed {
   title: string;
@@ -15,7 +16,7 @@ const Feed: React.FC = () => {
   const [offset, setOffset] = useState(0);
 
   const handleLoadEvents = (offset: number): void => {
-    fetch(`http://localhost:8000/api/feed/${offset}`, {
+    fetch(SERVER_URL + `/api/feed/${offset}`, {
       method: 'get',
       headers: { 'Content-Type': 'application/json' }
     })

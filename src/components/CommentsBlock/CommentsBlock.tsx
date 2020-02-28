@@ -5,6 +5,7 @@ import { UserContext } from '../../App';
 import { TComment } from '../../types/types';
 import Loading from '../Loading/Loading';
 import './CommentBlock.scss';
+import { SERVER_URL } from '../../vars';
 
 interface ICommentBlockProps {
   target: {
@@ -21,7 +22,7 @@ const CommentsBlock: React.FC<ICommentBlockProps> = ({ target, loadingMarginTop 
   const [comment, setComment] = useState('');
 
   useEffect(() => {
-    fetch(`http://localhost:8000/api/${target.name}/comments/${target.id}`, {
+    fetch(SERVER_URL + `/api/${target.name}/comments/${target.id}`, {
       method: 'get',
       headers: { 'Content-Type': 'application/json' }
     })
@@ -37,7 +38,7 @@ const CommentsBlock: React.FC<ICommentBlockProps> = ({ target, loadingMarginTop 
       return;
     }
 
-    fetch(`http://localhost:8000/api/${target.name}/comments/`, {
+    fetch(SERVER_URL + `/api/${target.name}/comments/`, {
       method: 'post',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
