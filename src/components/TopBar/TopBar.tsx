@@ -38,8 +38,6 @@ const TopBar: React.FC<ITopBar> = ({ setUser, toggleDrawer, userID, news = '' })
 
   const handleLogOut = () => {
     handleClose();
-    sessionStorage.removeItem('id');
-    sessionStorage.removeItem('username');
     setUser({
       username: '',
       id: ''

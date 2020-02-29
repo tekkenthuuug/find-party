@@ -13,14 +13,14 @@
   display: flex;
   align-items: center;
   flex-direction: column;
-  text-align: center;
   padding: 0px 100px;
   h1 {
     font-size: 42px;
     margin-top: 10px;
+    text-align: center;
   }
   p {
-    font-size: 14;
+    font-size: 14px;
     letter-spacing: -1px;
     color: #a4a4a4;
     span {
@@ -47,15 +47,12 @@
   width: 20%;
   background-color: #2ba296;
   border-radius: 10px;
-  outline: none;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 18px;
-  border: none;
   margin: 30px auto;
   color: inherit;
-  cursor: pointer;
   transition: background-color, width 0.3s ease-in-out;
   &:disabled {
     background-color: rgb(21, 85, 79);
@@ -111,6 +108,7 @@
 @media only screen and (max-width: 500px) {
   .form-box {
     padding: 0px 30px;
+    text-align: center;
     width: 100%;
   }
   .form-container {

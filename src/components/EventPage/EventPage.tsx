@@ -3,11 +3,7 @@ import CommentsBlock from '../CommentsBlock/CommentsBlock';
 import NotFound from '../NotFound/NotFound';
 import './EventPage.scss';
 import { SERVER_URL } from '../../vars';
-
-interface IEventProps {
-  eventID: string;
-  userID: string;
-}
+import { IEventProps } from '../../types/types';
 
 interface IEventState {
   title: string;
@@ -48,7 +44,7 @@ const EventPage: React.FC<IEventProps> = ({ eventID, userID }) => {
   }, [eventID, userID]);
 
   const handleEnroll = () => {
-    fetch(`http://localhost:8000/api/events/enroll`, {
+    fetch(SERVER_URL + `/api/events/enroll`, {
       method: 'put',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({

@@ -38,6 +38,7 @@ export interface ILink {
 export type Section = {
   title?: string;
   fields: {
+    type?: string;
     placeholder: string;
     name: string;
     defaultValue?: string;
@@ -54,4 +55,9 @@ export interface IUserProfileBase {
   firstName: string;
   lastName: string;
   description: string;
+}
+
+export interface IEventProps {
+  eventID: string;
+  userID: string;
 }

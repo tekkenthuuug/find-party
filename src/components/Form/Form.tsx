@@ -31,6 +31,7 @@ const Form: React.FC<IForm> = ({ headTitle, formik, sections, submitButtonText, 
                     return (
                       <TextInput
                         key={field.name}
+                        inputType={field.type}
                         initialVal={formik.values[field.name]}
                         placeholder={field.placeholder}
                         handleChange={formik.handleChange}

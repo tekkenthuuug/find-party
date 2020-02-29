@@ -13,7 +13,7 @@ const sections: Section[] = [
   {
     fields: [
       { placeholder: 'Username', name: 'username' },
-      { placeholder: 'Password', name: 'password' }
+      { placeholder: 'Password', name: 'password', type: 'password' }
     ]
   }
 ];
@@ -39,8 +39,6 @@ const Login: React.FC<IFormProps> = ({ user, setUser, location }) => {
         .then((r) => r.json())
         .then((data) => {
           if (data.id) {
-            sessionStorage.setItem('id', data.id);
-            sessionStorage.setItem('username', data.username);
             setUser({ id: data.id, username: data.username });
           } else if (data.error) {
             setSubmitting(false);

@@ -36,7 +36,7 @@ const sections: Section[] = [
     title: 'Login information',
     fields: [
       { placeholder: 'Username', name: 'username' },
-      { placeholder: 'Password', name: 'password' }
+      { placeholder: 'Password', name: 'password', type: 'password' }
     ]
   },
   {
