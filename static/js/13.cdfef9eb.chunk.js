@@ -1,0 +1,2 @@
+(this["webpackJsonpfind-party"]=this["webpackJsonpfind-party"]||[]).push([[13],{135:function(n,e,a){},139:function(n,e,a){"use strict";a.r(e);var t=a(0),o=a.n(t),r=a(24);a(135);e.default=function(n){var e=n.errorMessage,a=Object(r.g)();return o.a.createElement("div",{className:"not_found_container"},o.a.createElement("span",{className:"not_found_error"},e),o.a.createElement("span",{onClick:function(){return a.goBack()},className:"not_found_go_home"},"Go back"))}}}]);
+//# sourceMappingURL=13.cdfef9eb.chunk.js.map
