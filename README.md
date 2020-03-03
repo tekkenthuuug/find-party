@@ -7,4 +7,4 @@
 * User's profile also includes created / enrolled events count
 * User can leave comments in profiles or events
 * User can change description of profile in settings menu
-<p align="center"><a href="https://tekkenthuuug.github.io/find-games/"><strong>LIVE DEMO</strong></a></p>
+<p align="center"><a href="https://tekkenthuuug.github.io/find-party/"><strong>LIVE DEMO</strong></a></p>
